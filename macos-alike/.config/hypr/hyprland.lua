@@ -1,0 +1,7 @@
+require("devices")
+require("theme")
+require("keybinds")
+require("layout")
+require("rules")
+require("window_buttons")
+require("misc")

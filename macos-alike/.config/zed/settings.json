@@ -1,0 +1,90 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "language_models": {
+    "ollama": {
+      "context_window": 64,
+      "api_url": "http://192.168.1.104:11434/",
+    },
+  },
+  "agent": {
+    "default_model": {
+      "effort": "medium",
+      "provider": "copilot_chat",
+      "model": "gpt-5-mini",
+      "enable_thinking": true,
+    },
+    "favorite_models": [],
+    "model_parameters": [],
+  },
+  "edit_predictions": {
+    "open_ai_compatible_api": {
+      "model": "",
+      "api_url": "",
+    },
+    "ollama": {
+      "max_output_tokens": 2,
+      "prompt_format": "code_llama",
+      "model": "llama3:8b",
+      "api_url": "http://localhost:11434",
+    },
+    "provider": "copilot",
+  },
+  "cli_default_open_behavior": "existing_window",
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "One Dark",
+  },
+
+    "theme_overrides": {
+      "One Dark": {
+        "border": "#5c5d61",
+        "border.focused": "#5c5d61",
+        "border.selected": "#232323",
+        "background.appearance": "blurred",
+        "elevated_surface.background": "#141414",
+        "surface.background": "#17171780",
+        "background": "#17171780",
+        "status_bar.background": "#141414",
+        "title_bar.background": "#141414",
+        "toolbar.background": "#14141480",
+        "tab_bar.background": "#14141480",
+        "tab.inactive_background": "#141414",
+        "tab.active_background": "#17171780",
+        "panel.background": "#14141480",
+        "editor.foreground": "#FFFFFF",
+        "editor.background": "#17171780",
+        "editor.gutter.background": "#14141480",
+        "editor.subheader.background": "#17171780",
+        "editor.highlighted_line.background": "#17171780",
+        "panel.overlay_background": "#17171780",
+        "editor.active_line.background": "#20202080",
+        "element.hover": "#4472dd",
+        "element.selected": "#17171780",
+        "text": "#FFFFFFFF",
+        "text.muted": "#FFFFFFFF",
+        "ghost_element.hover": "#4472dd",
+        "ghost_element.active": "#14141480"
+      }
+    }
+  }
+
+  "languages": {
+    "Plain Text": {
+      "show_edit_predictions": false,
+    },
+    "JSON": {
+      "format_on_save": "off",
+      "use_on_type_format": false,
+    },
+  },
+}

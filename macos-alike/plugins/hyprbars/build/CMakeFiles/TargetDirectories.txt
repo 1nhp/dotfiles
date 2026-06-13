@@ -1,0 +1,7 @@
+/home/user/Hyprland/hyprland-plugins/hyprbars/build/CMakeFiles/hyprbars.dir
+/home/user/Hyprland/hyprland-plugins/hyprbars/build/CMakeFiles/edit_cache.dir
+/home/user/Hyprland/hyprland-plugins/hyprbars/build/CMakeFiles/rebuild_cache.dir
+/home/user/Hyprland/hyprland-plugins/hyprbars/build/CMakeFiles/list_install_components.dir
+/home/user/Hyprland/hyprland-plugins/hyprbars/build/CMakeFiles/install.dir
+/home/user/Hyprland/hyprland-plugins/hyprbars/build/CMakeFiles/install/local.dir
+/home/user/Hyprland/hyprland-plugins/hyprbars/build/CMakeFiles/install/strip.dir
