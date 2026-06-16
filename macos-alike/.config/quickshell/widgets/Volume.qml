@@ -1,42 +1,47 @@
-import Quickshell
 import Quickshell.Services.Pipewire
 import qs.components.bar
 import QtQuick
+import qs.utils
+import qs.modules.Menus
 
 Item {
-    implicitWidth: volumeText.implicitWidth
-    implicitHeight: volumeText.implicitHeight
-    anchors.verticalCenter: parent.verticalCenter
-    anchors.rightMargin: 10
+    id: volumeWidget
+    signal showVolumeMenu
+    signal hideVolumeMenu
+
+    implicitWidth: volumeButton.implicitWidth
+    implicitHeight: volumeButton.implicitHeight
 
     property var activeSink: Pipewire.defaultAudioSink
-
-    PwObjectTracker {
-        objects: [activeSink]
-    }
-
     property int volume: Math.round((activeSink?.audio?.volume ?? 0) * 100)
 
     property string volumeIcon: {
         if (!activeSink?.audio)
-            return "􀊣" // fallback
+            return "􀊣"; // fallback
 
         if (activeSink.audio.muted)
-            return "􀊣"
+            return "􀊣";
 
         if (volume === 0)
-            return "􀊥"
+            return "􀊥";
         if (volume < 33)
-            return "􀊧"
+            return "􀊧";
         if (volume < 66)
-            return "􀊩"
+            return "􀊩";
 
-        return "􀊩"
+        return "􀊩";
     }
 
-    TopText {
-        id: volumeText
+    TopButton {
+        id: volumeButton
         text: `${volumeIcon}`
+        font.pixelSize: 14
+        onPressedChanged: {
+            if (!checked) {
+                MenuManager.open(Menus.volumeMenuLoader);
+            } else {
+                MenuManager.close(Menus.volumeMenuLoader);
+            }
+        }
     }
-
 }

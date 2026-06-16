@@ -1,4 +1,20 @@
-local theme = require("theme")
+if hl.plugin.borders_plus_plus then
+    hl.config({
+        plugin = {
+            borders_plus_plus = {
+                add_borders = 1,
+                natural_rounding = true,
+
+                col = {
+                    border_1 = colors.additional_border_color,
+                },
+                border_size_1 = 1,
+            },
+        },
+    })
+end
+
+local theme = require("themes.macos.colors")
 
 if hl.plugin.hyprbars then
     hl.config({

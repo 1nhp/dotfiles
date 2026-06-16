@@ -1,4 +1,4 @@
-local misc = require("misc")
+local misc = require("env")
 
 local mainMod = "SUPER"
 local closeWindowBind = hl.bind(mainMod .. " + SUPER + SHIFT + Q", hl.dsp.window.close())

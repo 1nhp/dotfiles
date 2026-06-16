@@ -5,8 +5,6 @@ import qs.components.bar
 Item {
     implicitWidth: clockText.implicitWidth
     implicitHeight: clockText.implicitHeight
-    anchors.verticalCenter: parent.verticalCenter
-    anchors.rightMargin: 10
 
     SystemClock {
         id: clock

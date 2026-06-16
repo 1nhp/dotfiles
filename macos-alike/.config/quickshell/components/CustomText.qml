@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Controls
-import qs.components.bar
+import qs.components
 
 Text {
     color: "white"

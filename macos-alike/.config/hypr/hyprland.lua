@@ -1,7 +1,9 @@
 require("devices")
-require("theme")
 require("keybinds")
 require("layout")
 require("rules")
-require("window_buttons")
-require("misc")
+require("env")
+require("autostart")
+
+-- Pick a theme
+require("themes/macos")

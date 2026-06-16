@@ -1,31 +1,29 @@
 import QtQuick
 import Quickshell
 import qs.services
-import Quickshell.Services.Pipewire
+import qs.utils
 
 PanelWindow {
     id: volumeOSD
-    visible: true
+    visible: false
     color: "transparent"
-    exclusiveZone: 0
-    surfaceFormat: opaque
+    exclusiveZone: -1
 
     anchors {
         bottom: true
     }
 
-    width: 350
-    height: 350
+    implicitWidth: 350
+    implicitHeight: 350
 
     property int volume: 0
     property bool muted: false
 
     Rectangle {
-
         anchors.margins: 50
         anchors.fill: parent
         radius: 12
-        color: Qt.rgba(1, 1, 1, 0.3)
+        color: Qt.rgba(0, 0, 0, 0.7)
 
         Column {
             anchors.centerIn: parent
@@ -43,15 +41,17 @@ PanelWindow {
         }
 
         Rectangle {
+            id: sliderBg
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottomMargin: 10 // Optional padding
+            anchors.bottomMargin: 10
             width: 200
-            height: 10
+            height: 8
             radius: 4
             color: muted ? "transparent" : Qt.rgba(1, 1, 1, 0.2)
 
             Rectangle {
+                id: fill
                 width: parent.width * (volume / 100)
                 height: parent.height
                 radius: 4
@@ -62,6 +62,26 @@ PanelWindow {
                         duration: 150
                         easing.type: Easing.OutCubic
                     }
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+
+                onPressed: function (mouse) {
+                    if (pressed)
+                        updateVolume(mouse);
+                }
+                onPositionChanged: function (mouse) {
+                    if (pressed)
+                        updateVolume(mouse);
+                }
+
+                function updateVolume(mouse) {
+                    let percent = mouse.x / sliderBg.width;
+                    percent = Math.max(0, Math.min(1, percent));
+                    volume = Math.round(percent * 100);
+                    VolumeControl.setVolume(percent);
                 }
             }
         }

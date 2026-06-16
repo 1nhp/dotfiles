@@ -27,7 +27,9 @@ hl.window_rule({
     float = true,
 })
 
-layerrule = {
-    "blur, quickshell",
-    "ignorealpha 0.2, quickshell"
-}
+hl.window_rule({
+    name  = "quickshell",
+    match = { class = "org.quickshell" },
+    float = true,
+
+})
