@@ -9,7 +9,7 @@ import Quickshell.Services.UPower
 import QtQuick.Layouts
 
 PanelWindow {
-    id: batteryMenu
+    id: batteryMenuRoot
     visible: false
     color: "transparent"
     objectName: "BatteryMenu"
@@ -20,6 +20,10 @@ PanelWindow {
     anchors {
         top: true
         right: true
+    }
+
+    mask: Region {
+        item: batteryMenu
     }
 
     property var device: UPower.displayDevice
@@ -40,6 +44,7 @@ PanelWindow {
     margins.top: 10
 
     Rectangle {
+        id: batteryMenu
         width: 270
         height: 150
         color: Qt.rgba(0, 0, 0, 1)

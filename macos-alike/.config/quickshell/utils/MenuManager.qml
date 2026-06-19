@@ -1,5 +1,8 @@
 pragma Singleton
 import QtQuick
+import qs.modules
+import qs.modules.Menus
+import qs.utils
 
 QtObject {
     property var activeMenu: null
@@ -17,5 +20,12 @@ QtObject {
             activeMenu = null;
 
         menu.close();
+    }
+
+    function openDockMenu(pid, program, anchorItem) {
+        Globals.dockMenuProgram = program;
+        Globals.dockpid = pid;
+        open(Menus.dockMenuLoader);
+        console.log("PID: " + pid);
     }
 }

@@ -6,7 +6,7 @@ import qs.components
 import QtQuick.Layouts
 
 PanelWindow {
-    id: startMenu
+    id: startMenuRoot
     visible: false
     color: "transparent"
     objectName: "StartMenu"
@@ -19,7 +19,12 @@ PanelWindow {
         left: true
     }
 
+    mask: Region {
+        item: startMenu
+    }
+
     Rectangle {
+        id: startMenu
         width: 220
         height: 270
         color: Qt.rgba(0, 0, 0, 1)

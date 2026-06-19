@@ -1,6 +1,6 @@
 local terminal    = "alacritty"
 local fileManager = "thunar"
-local menu        = "hyprlauncher"
+local menu        = "quickshell -p ~/.config/quickshell/modules/Launchpad.qml"
 
 hl.config({
     misc = {

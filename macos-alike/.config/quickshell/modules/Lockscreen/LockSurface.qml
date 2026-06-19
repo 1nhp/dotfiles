@@ -1,118 +1,195 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls.Fusion
-import Quickshell.Wayland
 import qs.components
 import qs.utils
+import qs.services
+import Quickshell
+import Quickshell.Wayland
+import Quickshell.Io
 
 Rectangle {
     id: root
     required property LockContext context
-    readonly property ColorGroup colors: Window.active ? palette.active : palette.inactive
+    property string username
     color: "#252525"
 
-    BigButton {
-        focusPolicy: Qt.NoFocus
-        opacity: 0
-        onHoveredChanged: Globals.screenLocked = false
-    }
+    Rectangle {
+        visible: true
+        anchors.fill: parent
+        color: "#252525"
 
-    CustomText {
-        id: clock
-
-        property var date: new Date()
-
-        anchors {
-            horizontalCenter: parent.horizontalCenter
-            top: parent.top
-            topMargin: 100
+        Process {
+            id: userProc
+            command: ["whoami"]
+            stdout: StdioCollector {
+                onStreamFinished: root.username = text.trim()
+            }
         }
 
-        font.pixelSize: 120
+        Component.onCompleted: {
+            userProc.running = true;
+        }
 
-        Timer {
-            running: true
-            repeat: true
-            interval: 1000
-            onTriggered: clock.date = new Date()
-        }
-        text: {
-            const hours = this.date.getHours().toString().padStart(2, '0');
-            const minutes = this.date.getMinutes().toString().padStart(2, '0');
-            return `${hours}:${minutes}`;
-        }
-    }
-    ColumnLayout {
-        anchors {
-            horizontalCenter: parent.horizontalCenter
-            bottom: parent.bottom
-            bottomMargin: 85
-        }
-        RowLayout {
-            CustomTextInput {
-                id: passwordBox
-                implicitWidth: 160
-                implicitHeight: 28
-                leftPadding: 10
-                rightPadding: 10
-                focus: true
-                enabled: !root.context.unlockInProgress
-                onTextChanged: root.context.currentText = this.text
-                onAccepted: root.context.tryUnlock()
-                echoMode: TextInput.Password
-                placeholderText: "Enter Password"
+        CustomText {
+            id: date
 
-                SequentialAnimation {
-                    id: bounceAnimation
-                    NumberAnimation {
-                        target: passwordBox
-                        property: "x"
-                        to: passwordBox.x + 12
-                        duration: 60
-                        easing.type: Easing.OutQuad
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                top: parent.top
+                topMargin: 120
+            }
+            font.pixelSize: 30
+
+            text: {
+                Date.day;
+            }
+        }
+
+        CustomText {
+            id: clock
+
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                top: parent.top
+                topMargin: 150
+            }
+            font.pixelSize: 120
+
+            text: {
+                Date.time;
+            }
+        }
+
+        ColumnLayout {
+            spacing: 8
+
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                bottom: parent.bottom
+                bottomMargin: 20
+            }
+
+            CustomText {
+                text: root.username
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 16
+                bottomPadding: 10
+            }
+
+            RowLayout {
+                spacing: 0
+
+                CustomTextInput {
+                    id: passwordBox
+
+                    property real shakeOffset: 0
+                    x: shakeOffset
+
+                    implicitWidth: 170
+                    implicitHeight: 32
+                    leftPadding: 10
+                    rightPadding: 10
+                    enabled: !root.context.unlockInProgress
+
+                    echoMode: TextInput.Password
+                    placeholderText: "Enter Password"
+
+                    onTextChanged: {
+                        if (text !== root.context.currentText)
+                            root.context.currentText = text;
                     }
-                    NumberAnimation {
-                        target: passwordBox
-                        property: "x"
-                        to: passwordBox.x - 10
-                        duration: 60
-                        easing.type: Easing.InOutQuad
+                    onAccepted: root.context.tryUnlock()
+
+                    SequentialAnimation {
+                        id: bounceAnimation
+
+                        NumberAnimation {
+                            target: passwordBox
+                            property: "shakeOffset"
+                            from: 0
+                            to: 12
+                            duration: 60
+                            easing.type: Easing.OutQuad
+                        }
+                        NumberAnimation {
+                            target: passwordBox
+                            property: "shakeOffset"
+                            to: -10
+                            duration: 60
+                            easing.type: Easing.InOutQuad
+                        }
+                        NumberAnimation {
+                            target: passwordBox
+                            property: "shakeOffset"
+                            to: 8
+                            duration: 60
+                            easing.type: Easing.InOutQuad
+                        }
+                        NumberAnimation {
+                            target: passwordBox
+                            property: "shakeOffset"
+                            to: -6
+                            duration: 60
+                            easing.type: Easing.InOutQuad
+                        }
+                        NumberAnimation {
+                            target: passwordBox
+                            property: "shakeOffset"
+                            to: 0
+                            duration: 60
+                            easing.type: Easing.InQuad
+                        }
                     }
-                    NumberAnimation {
-                        target: passwordBox
-                        property: "x"
-                        to: passwordBox.x + 8
-                        duration: 60
-                        easing.type: Easing.InOutQuad
-                    }
-                    NumberAnimation {
-                        target: passwordBox
-                        property: "x"
-                        to: passwordBox.x - 6
-                        duration: 60
-                        easing.type: Easing.InOutQuad
-                    }
-                    NumberAnimation {
-                        target: passwordBox
-                        property: "x"
-                        to: passwordBox.x + 0
-                        duration: 60
-                        easing.type: Easing.InQuad
+
+                    ActionButton {
+                        id: unlockButton
+                        onReleased: root.context.tryUnlock()
+                        enabled: !root.context.unlockInProgress
+
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 20
+                        hoverBox: false
+
+                        text: "􀁼"
+                        textColor: unlockButton.down ? "#505050" : "#909090"
                     }
                 }
 
                 Connections {
                     target: root.context
+
                     function onShowFailureChanged() {
                         if (root.context.showFailure) {
                             bounceAnimation.start();
                             passwordBox.clear();
                         }
                     }
+
                     function onCurrentTextChanged() {
-                        passwordBox.text = root.context.currentText;
+                        if (root.context.currentText === "")
+                            passwordBox.clear();
                     }
                 }
+            }
+
+            CustomText {
+                id: loadingIcon
+                layer.enabled: true
+                layer.smooth: true
+
+                NumberAnimation on rotation {
+                    from: 0
+                    to: 360
+                    duration: 1000
+                    loops: Animation.Infinite
+                    running: root.context.unlockInProgress
+                }
+                text: "􀴽"
+                color: "#808080"
+                opacity: "0" ? root.context.unlockInProgress : "1"
+                font.pixelSize: 20
+                anchors.horizontalCenter: parent.horizontalCenter
             }
         }
     }

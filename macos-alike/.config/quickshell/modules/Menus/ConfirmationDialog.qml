@@ -39,11 +39,11 @@ FloatingWindow {
             focus: false
             clip: true
             ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
+                anchors.fill: parent
                 anchors.leftMargin: 18
                 anchors.rightMargin: 18
+                anchors.topMargin: 18
+                anchors.bottomMargin: 18   // <-- this gives breathing room below the buttons
                 spacing: 14
 
                 // TODO: Implement types as an if statement cause?
@@ -57,8 +57,8 @@ FloatingWindow {
 
                     Image {
                         anchors.centerIn: parent
-                        width: parent.width * 0.7
-                        height: parent.height * 0.7
+                        width: parent.width * 0.6
+                        height: parent.height * 0.6
                         source: Qt.resolvedUrl("../../assets/user.png")
                         fillMode: Image.PreserveAspectFit
                     }
@@ -69,6 +69,8 @@ FloatingWindow {
                     text: dialogTitle
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignLeft
+                    visible: dialogTitle !== ""
+                    anchors.centerIn: parent
                 }
 
                 CustomText {
@@ -77,11 +79,14 @@ FloatingWindow {
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignLeft
                     font.weight: Font.Medium
+                    visible: dialogText !== ""
                 }
 
                 RowLayout {
                     Layout.fillWidth: true
                     spacing: 8
+                    anchors.bottom: parent.bottom
+                    anchors.horizontalCenter: parent.horizontalCenter
 
                     BigButton {
                         colorVariant: "grey"

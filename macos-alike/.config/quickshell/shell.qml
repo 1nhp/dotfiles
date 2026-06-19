@@ -8,6 +8,8 @@ import qs.modules.Menus
 import qs.modules.Lockscreen
 import qs.services
 import qs.utils
+import Quickshell.Hyprland
+import Quickshell.Wayland
 
 PanelWindow {
     color: "black"
@@ -17,8 +19,13 @@ PanelWindow {
         right: true
     }
     implicitHeight: 28
+    WlrLayershell.namespace: "bar"
 
+    Keybinds {}
+
+    Dock {}
     LockScreen {}
+
     VolumeOSD {
         id: volumeOSD
     }

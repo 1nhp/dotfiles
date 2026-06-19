@@ -27,9 +27,14 @@ hl.window_rule({
     float = true,
 })
 
-hl.window_rule({
-    name  = "quickshell",
-    match = { class = "org.quickshell" },
-    float = true,
+hl.layer_rule({
+    match = { namespace = "launchpad" },
+    blur  = false,
+    order = 1
+})
 
+hl.layer_rule({
+    match = { namespace = "bar" },
+    blur  = false,
+    order = 2
 })

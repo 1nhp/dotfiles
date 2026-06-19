@@ -10,9 +10,10 @@ Item {
     function open() {
         loader.active = true;
         console.log("[LazyLoader] Menu " + item + " opened");
-        if (loader.item)
+        if (loader.status === Loader.Ready && loader.item) {
             loader.item.visible = true;
-        Globals.menuOpen = loader.item.objectName;
+            Globals.menuOpen = loader.item.objectName;
+        }
     }
 
     function close() {

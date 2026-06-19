@@ -6,7 +6,9 @@ TextField {
     id: textInput
 
     inputMethodHints: Qt.ImhSensitiveData
-    color: "#505050"
+    color: !textInput.enabled ? "#404040" : "#808080"
+    selectionColor: "#505050"
+
     font.family: "SF Pro Rounded"
     font.bold: true
     font.pixelSize: 14

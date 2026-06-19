@@ -4,6 +4,7 @@ import qs.utils
 
 ShellRoot {
     id: root
+
     LockContext {
         id: lockContext
 

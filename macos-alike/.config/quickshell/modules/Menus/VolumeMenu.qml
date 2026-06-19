@@ -7,7 +7,7 @@ import qs.components
 import Quickshell.Io
 
 PanelWindow {
-    id: volumeMenu
+    id: volumeMenuRoot
     objectName: "VolumeMenu"
 
     visible: false
@@ -22,6 +22,10 @@ PanelWindow {
         right: true
     }
 
+    mask: Region {
+        item: volumeMenu
+    }
+
     property int volume: Math.round(Pipewire.defaultAudioSink.audio.volume * 100)
 
     Connections {
@@ -33,6 +37,7 @@ PanelWindow {
     }
 
     Rectangle {
+        id: volumeMenu
         width: 270
         height: 100
         color: Qt.rgba(0, 0, 0, 1)
