@@ -23,7 +23,7 @@ Currently the shell is under development and is currently reaching beta phase. i
 - Lightweight (in most cases)
 
 ### Installation
-Currently there is no install script however if you have sanity you can install this Shell
+Currently there is no install script however if you have sanity you can install this rice and shell
 1. ```yay -Suy quickshell hyprland``` for arch
 2. ```git clone [https://github.com/1nhp/dotfiles/new/main/macos-alike](https://github.com/1nhp/dotfiles.git)```
 3. ```cd macos-alike```
