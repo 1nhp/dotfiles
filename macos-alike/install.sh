@@ -63,6 +63,7 @@ install_dependencies() {
 
 cleanup() {
     status
+    echo a
     rm -rf "../../dotfiles"
 }
 
