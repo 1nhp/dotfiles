@@ -68,12 +68,11 @@ cleanup() {
 
 main() {
     git clone https://github.com/1nhp/dotfiles.git
-    cd macos-alike
+    cd dotfiles/macos-alike
 
     install_dependencies
     STAGE=2
     status
-    mkdir -p test
     copy_folder ".config" "~/"
     copy_folder ".local" "~/"
     STAGE=3
