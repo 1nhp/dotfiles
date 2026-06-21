@@ -74,8 +74,8 @@ main() {
     STAGE=2
     status
     mkdir -p test
-    copy_folder ".config" "test"
-    copy_folder ".local" "test"
+    copy_folder ".config" "~/"
+    copy_folder ".local" "~/"
     STAGE=3
     cleanup
     STAGE=4
