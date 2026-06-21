@@ -67,6 +67,9 @@ cleanup() {
 }
 
 main() {
+    git clone https://github.com/1nhp/dotfiles.git
+    cd macos-alike
+
     install_dependencies
     STAGE=2
     status
